@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+    
+    <div class="d-flex flex-column align-items-center p-5 my-5 text-dark">
+        <h1>Create a car</h1>
+        <div class="w-25">
+            {{ form_start(form) }}
+            
+            {{ form_widget(form)}}
+            <div class="w-100 d-flex justify-content-around">
+                <button type="reset" class="w-50 btn btn-dark mt-2 me-2">Reset</button>
+                <button type="submit" class="w-50 btn btn-dark mt-2 ms-2">Submit</button>
+            </div>
+    
+            {{ form_end(form)}}
+        </div>
+    </div>
+            
+{% endblock %}

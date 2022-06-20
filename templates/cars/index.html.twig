@@ -3,8 +3,8 @@
 
 {% block body %}
     
-    <div class="container-fluid d-flex flex-column align-items-center">
-    <a class="btn btn-secondary w-50 mt-4" href="/cars/create">Add a car</a>
+    <div class="container-fluid d-flex flex-column align-items-center text-dark">
+    <a class="btn btn-outline-dark w-50 mt-4" href="/cars/create">Add a car</a>
     {% for car in cars %}
 
         <div class="card my-4 w-50">
@@ -13,14 +13,14 @@
             <img src="{{car.ImagePath}}" class="img-fluid rounded-start" alt="{{car.brand}} {{car.model}}">
             </div>
             <div class="col-md-7">
-            <div class="card-body mt-5 mx-5">
+            <div class="card-body mt-4 mx-5">
                 <h5 class="card-title h2">{{car.brand}} {{car.model}}</h5>
                 <div class="card-text">
                 <ul class="list-unstyled">
                     <li>Production Year: {{car.ProductionYear}}</li>
                     <li>Horse Power: {{car.HorsePower}}</li>
                 </ul>
-                <a class="btn btn-secondary" href="/cars/{{car.id}}">More Info</a>
+                <a class="btn btn-outline-dark" href="/cars/{{car.id}}">More Info</a>
                 </div>
             </div>
             </div>
