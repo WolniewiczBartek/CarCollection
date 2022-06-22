@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Car;
+use App\Entity\User;
 use App\Form\CarFormType;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
@@ -17,6 +18,12 @@ class CarsController extends AbstractController
 
     public function __construct(EntityManagerInterface $entityManager){
         $this->em = $entityManager;
+    }
+
+    #[Route('/', name: 'cars_redirect')]
+    public function to_cars(): Response
+    {
+        return $this->redirectToRoute('cars_show');
     }
 
     #[Route('/cars', name: 'cars_show')]
@@ -56,8 +63,15 @@ class CarsController extends AbstractController
 
                 $newCar->setImagePath('/uploads/'.$newFileName);
             }
+            $description = $form->get('Description')->getData();
+            if(!$description){
+                $newCar->setDescription("This is ".$newCar->getBrand()." ".$newCar->getModel()." description.");
+            }
+            $user = $this->getUser();
+            $user->addCar($newCar);
 
             $this->em->persist($newCar);
+            $this->em->persist($user);
             $this->em->flush();
 
             return $this->redirectToRoute('cars_show');
@@ -66,6 +80,32 @@ class CarsController extends AbstractController
         return $this->render('cars/create.html.twig',[
             'form' => $form->createView()
         ]);
+    }
+
+    #[Route('/cars/other', name: 'cars_other')]
+    public function other(): Response 
+    {   
+        $repo = $this->em->getRepository(Car::class);
+        $cars = $repo->findAll();
+
+        return $this->render('cars/other.html.twig', [
+            'cars' => $cars
+        ]);
+    }
+
+    #[Route('/cars/add/{id}', name: 'car_add')]
+    public function add($id): Response
+    {
+        $repo = $this->em->getRepository(Car::class);
+        $car = $repo->find($id);
+        
+        $user = $this->getUser();
+        $user->addCar($car);
+
+        $this->em->persist($user);
+        $this->em->flush();
+
+        return $this->redirectToRoute('cars_show');
     }
 
     #[Route('/cars/update/{id}', name: 'car_update')]
@@ -117,7 +157,10 @@ class CarsController extends AbstractController
         $repo = $this->em->getRepository(Car::class);
         $car = $repo->find($id);
 
-        $this->em->remove($car);
+        $user = $this->getUser();
+        $user->removeCar($car);
+
+        $this->em->persist($user);
         $this->em->flush();
 
         return $this->redirectToRoute('cars_show');

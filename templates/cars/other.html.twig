@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+    
+    <div class="container-fluid d-flex flex-column align-items-center text-dark">
+    {% for car in cars %}
+        {% if car not in app.user.cars%}
+        <div class="card rounded-start my-4 w-50">
+            <div class="row g-0">
+                <div class="col-md-5">
+                    <img src="{{car.ImagePath}}" class="img-fluid rounded-start" alt="{{car.brand}} {{car.model}}">
+                </div>
+                <div class="col-md-7">
+                    <div class="card-body mt-4 mx-5">
+                        <h2 class="card-title">{{car.brand}} {{car.model}}</h2>
+                        <div class="card-text">
+                            <ul class="list-unstyled">
+                                <li>Production Year: {{car.ProductionYear}}</li>
+                                <li>Horse Power: {{car.HorsePower}}</li>
+                            </ul>
+                            <a class="btn btn-outline-dark" href="/cars/add/{{car.id}}">Add to my collection</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    {% endfor %}
+    </div>
+{% endblock %}

@@ -23,16 +23,27 @@
                 <div class="collapse navbar-collapse" id="navbarColor02">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
-                    <a class="nav-link active" href="/cars">Home
-                        <span class="visually-hidden">(current)</span>
+                    <a class="nav-link" href="/cars">Home
                     </a>
                     </li>
                     <li class="nav-item">
-                    <a class="nav-link" href="#">Login</a>
+                    <a class="nav-link" href="/cars/other">Other cars</a>
+                    </li>
+                    {% if app.user %}
+                    <li class="nav-item">
+                    <a class="nav-link" href="/user">Profile</a>
                     </li>
                     <li class="nav-item">
-                    <a class="nav-link" href="#">Register</a>
+                    <a class="nav-link" href="/logout">Logout</a>
                     </li>
+                    {% else %}
+                    <li class="nav-item">
+                    <a class="nav-link" href="/login">Login</a>
+                    </li>
+                    <li class="nav-item">
+                    <a class="nav-link" href="/register">Register</a>
+                    </li>
+                    {% endif %}
                 </ul>
                 </div>
             </div>

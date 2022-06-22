@@ -9,6 +9,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class CarFormType extends AbstractType
 {
@@ -46,6 +47,14 @@ class CarFormType extends AbstractType
                 ],
                 'required' => false,
                 'mapped' => false
+            ])
+            ->add('Description', TextareaType::class, [
+                'attr' => [
+                    'class' => 'form-control my-1',
+                    'rows' => 5,
+                    'maxlength' => 1000
+                ],
+                'required' => false
             ])
         ;
     }

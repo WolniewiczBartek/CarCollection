@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="d-flex flex-column align-items-center p-4 my-5 text-dark">
+        <div class="container-fluid w-25">
+            <div class="row mt-2">
+                <h1 class="col-12">User information</h1>
+            </div>
+            <div class="row mt-2">
+                <div class="col-6">Email</div>
+                <div class="col-6">{{app.user.email}}</div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-6">First Name</div>
+                <div class="col-6">{{app.user.firstname}}</div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-6">Last Name</div>
+                <div class="col-6">{{app.user.lastname}}</div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-6">Cars in collection</div>
+                <div class="col-6">{{app.user.cars|length}}</div>
+            </div>
+            <div class="row mt-2">
+                <a class="btn btn-dark me-1 col-5" href="/user/update">Update account</a>
+                <a class="btn btn-dark ms-1 col-5" href="/user/delete/{{app.user.id}}">Delete account</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}
